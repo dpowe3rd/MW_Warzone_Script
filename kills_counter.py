@@ -13,12 +13,13 @@ html_soup = BeautifulSoup(res.text, 'html.parser')
 stats = html_soup.find_all('td', class_='stat')
 
 # pp.pprint(str(stats[67])[55:].split('<')[0])
-for i in range(len(stats)):
+for i in range(len(stats)-1):
     kills = str(stats[i])[50:].split('>')[1].split('<')[0]
-    matches = str(stats[i + 1])[50:].split('>')[1].split('<')[0]
+    matches = str(stats[i+1])[50:].split('>')[1].split('<')[0]
 
     if kills > matches:
-        print(kills + ' Kills' + ' & ' + matches + ' Matches')
+        temp0 = [kills, matches]
+        print(temp0)
     else:
         pass
 
