@@ -7,7 +7,7 @@ pp = pprint.PrettyPrinter(width=4000)
 # for num in range(23309):
 #     num += 1
 
-url = 'https://cod.tracker.gg/warzone/leaderboards/stats/all/Kills?page=1'
+url = 'https://cod.tracker.gg/warzone/leaderboards/battle-royale/all/Kills?page=1'
 res = requests.get(url)
 html_soup = BeautifulSoup(res.text, 'html.parser')
 
@@ -23,17 +23,11 @@ userMatchesPlayed = []
 
 platform = []
 kills1 = []
-
+gamesPlayed = []
 
 final = []
 
 players = []
-
-gamesPlayed = []
-tired = []  # Remove this
-
-
-
 
 for info in userAndPlatform:
     # This for loop interates through the data of the bs4.Result.Set and appends a string of data to list "players"
@@ -44,10 +38,7 @@ for j in range(len(players)):
     # This for loop interates through the list "players" and separates the platform they play on
     # from the name of the player themselves, cleans it, appends them to temporary variables "gamers" and "platform"
     # respectively and then appends both temporary lists to the list "userInfo"
-
-    gamers = [str(players[j][160:]).split('>')[0].split('/')[1]]
-    platform = [str(players[j][160:]).split('/')[0]]
-    userInfo.append(gamers + platform)
+    userInfo.append([str(players[j][160:]).split('>')[0].split('/')[1]] + [str(players[j][160:]).split('/')[0]])
 
 for kill in kills:
     # This for loop interates through the data of a bs4.Result.Set and appends a string of data to list "kills1"
@@ -59,8 +50,7 @@ for i in range(len(kills1)):
     # from the name of the player themselves, cleans it, appends it to the temporary list "kills"
     # and then appends them the list "userKills"
 
-    kills = [str(kills1[i])[50:].split('>')[1].split('<')[0].replace(',', '')]
-    userKills.append(kills)
+    userKills.append([str(kills1[i])[50:].split('>')[1].split('<')[0].replace(',', '')])
 
 for match in matches:
     # This for loop interates through the data of a bs4.Result.Set and appends a string of data to list "gamesPlayed"
@@ -72,12 +62,14 @@ for i in range(len(gamesPlayed)):
     # from the name of the player themselves, cleans it, appends it to the temporary list "game"
     # and then appends them the list "userMatchesPlayed"
 
-    game = [str(gamesPlayed[i][50:].split('>')[1].split('<')[0].replace(',', ''))]
-    userMatchesPlayed.append(game)
+    userMatchesPlayed.append([str(gamesPlayed[i][50:].split('>')[1].split('<')[0].replace(',', ''))])
 
 for h in range(len(userInfo)):
 
     final.append(userInfo[h] + userKills[h] + userMatchesPlayed[h])
 
+fmt = '{:<14}{:<18}{:15}{:15}'
+
+pp.pprint(fmt.format('User', 'Platform', 'Kills', 'Matches Played'))
 pp.pprint(final)
 
