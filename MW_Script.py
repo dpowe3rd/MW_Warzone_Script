@@ -54,7 +54,7 @@ for num in range(23309):
         userKills.append([str(kills1[i])[50:].split('>')[1].split('<')[0].replace(',', '')])
 
     for match in matches:
-        # This for loop interates through the data of a bs4.Result.Set and appends a string of data to list "gamesPlayed"
+    # This for loop interates through the data of a bs4.Result.Set and appends a string of data to list "gamesPlayed"
 
         gamesPlayed.append(str(match))
 

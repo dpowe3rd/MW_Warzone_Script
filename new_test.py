@@ -14,8 +14,9 @@ html_soup = BeautifulSoup(res.text, 'html.parser')
 userAndPlatform = html_soup.find_all('td', class_='username')
 kills = html_soup.find_all('td', class_="stat")
 matches = html_soup.find_all('td', class_='stat collapse')
-del kills[1::2]
-
+del kills[1::2]  # Delete every odd numbered list elements in the list 'kills'
+# This was needed as the html class name that was needed happened to be quite similar to another class. This added
+# additional list elements. These elements in particular happened to have odd index numbers.
 
 userInfo = []
 userKills = []
